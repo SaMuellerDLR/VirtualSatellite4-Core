@@ -10,7 +10,8 @@ jobs:
     name: Surefire
     # Set the type of machine to run on
     runs-on: ubuntu-16.04
-      steps:
+    steps:
+     
        # Checks out a copy of your repository
       - name: Checkout code
         uses: actions/checkout@v2
