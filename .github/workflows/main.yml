@@ -4,48 +4,13 @@ name: Build
 on: push
 
 jobs:
-  verify:
-    name: Verify
-    runs-on: ubuntu-16.04
-    
-    steps:
-      # Checks out a copy of your repository
-      - name: Checkout code
-        uses: actions/checkout@v2
-        
-      # --------------------------------------------
-      # Run a quicksanity check if all commits are
-      # handed in by known users
-      #---------------------------------------------
-      - name: Verify - Authors Sanity Check
-        run: ./bash/verify_commit_authors.sh known_authors.txt
-
-  spotbugs:
-    # Name the Job
-    name: Spotbugs
-    # Set the type of machine to run on
-    runs-on: ubuntu-16.04
-    needs: [verify]
-
-    steps:
-       # Checks out a copy of the repository
-      - name: Checkout code
-        uses: actions/checkout@v2
-        
-      - name: Setup
-        run: ./bash/setup.sh
-      
-      - name: Build and Test - SpotBugs - Development and Features
-        run: ./bash/maven_build.sh -j spotbugs -p development
-        
+ 
   surefire:
     # Name the Job
     name: Surefire
     # Set the type of machine to run on
     runs-on: ubuntu-16.04
-    needs: [verify]
-
-    steps:
+      steps:
        # Checks out a copy of your repository
       - name: Checkout code
         uses: actions/checkout@v2
@@ -58,27 +23,8 @@ jobs:
          export DISPLAY=:99.0
          Xvfb -ac :99 -screen 0 1280x1024x16 > /dev/null 2>&1 &
          metacity --sm-disable --replace 2> metacity.err &
+         ./bash/setup.sh
+         ./bash/maven_build.sh -j surecoverage -p development
         
-      - name: Setup
-        run: ./bash/setup.sh
-        
-      - name: Build and Test - Surefire - Development and Features
-        run: ./bash/maven_build.sh -j surecoverage -p development
       
-  checkstyle:
-    # Name the Job
-    name: Checkstyle
-    # Set the type of machine to run on
-    runs-on: ubuntu-16.04
-    needs: [verify]
-
-    steps:
-       # Checks out a copy of your repository
-      - name: Checkout code
-        uses: actions/checkout@v2
-        
-      - name: Setup
-        run: ./bash/setup.sh
-        
-      - name: Build and Test - Checkstyle - Development and Features
-        run: ./bash/maven_build.sh -j checkstyle -p development
+ 
