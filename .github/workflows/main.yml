@@ -196,7 +196,6 @@ jobs:
          release_name: Virtual Satellite 4 Core Development Build  
          overwrite: true
          file_glob: true
-         body: "Development build on latest commit by Github Actions CI - ${{ github.ref }} (${{ github.sha }}) - $(date +'%F %T %Z'). This release is subject to constant change."
          
       - name: Deploy - Development - Manuals
         if: ${{ github.ref == 'refs/heads/development'  }}
@@ -207,6 +206,7 @@ jobs:
          tag: development_snapshot
          overwrite: true
          file_glob: true
+         body: "Development build on latest commit by Github Actions CI - ${{ github.ref }} (${{ github.sha }}) - $(date +'%F %T %Z'). This release is subject to constant change."
          
       - name: Deploy - Integration - Binaries
         if: ${{ github.ref == 'refs/heads/integration'  }}
@@ -218,7 +218,6 @@ jobs:
          release_name: Virtual Satellite 4 Core Integration Build  
          overwrite: true
          file_glob: true
-         body: "Integration build on latest commit by Github Actions CI - ${{ github.ref }} (${{ github.sha }}) - $(date +'%F %T %Z'). This release is subject to constant change."
          
       - name: Deploy - Integration - Manuals
         if: ${{ github.ref == 'refs/heads/integration'  }}
@@ -229,7 +228,8 @@ jobs:
          tag: integration_snapshot
          overwrite: true
          file_glob: true
-       
+         body: "Integration build on latest commit by Github Actions CI - ${{ github.ref }} (${{ github.sha }}) - $(date +'%F %T %Z'). This release is subject to constant change."
+         
       - name: Deploy - Release - Binaries
         if: ${{ (contains(github.ref, 'refs/tags/') && contains(github.ref, 'Release'))  }}
         uses: svenstaro/upload-release-action@v2
@@ -239,7 +239,6 @@ jobs:
          tag: ${{ github.ref }}
          release_name: Virtual Satellite 4 Core Release Build  
          file_glob: true
-         body: "Release build on latest commit by Github Actions CI - ${{ github.ref }} (${{ github.sha }}) - $(date +'%F %T %Z'). This is a stable release."
          
       - name: Deploy - Release - Manuals
         if: ${{ (contains(github.ref, 'refs/tags/') && contains(github.ref, 'Release'))  }}
@@ -249,3 +248,4 @@ jobs:
          file: de.dlr.sc.virsat.docs.feature/docs/*.pdf
          tag: ${{ github.ref }}
          file_glob: true
+         body: "Release build on latest commit by Github Actions CI - ${{ github.ref }} (${{ github.sha }}) - $(date +'%F %T %Z'). This is a stable release."  
