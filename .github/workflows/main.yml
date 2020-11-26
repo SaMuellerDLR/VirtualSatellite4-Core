@@ -9,7 +9,7 @@ on:
    branches:
       - 'feature/*'
  schedule:
-   - cron: "*/5 * * * *"
+   - cron: "*/1 * * * *"
      
 jobs:
   verify:
