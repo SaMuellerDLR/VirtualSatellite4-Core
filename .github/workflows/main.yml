@@ -7,9 +7,7 @@ on:
       - '**'
  pull_request:
    branches:
-      - 'feature/*'
- schedule:
-   - cron: '*/1 * * * *'
+      - '**'
      
 jobs:
   verify:
@@ -142,11 +140,11 @@ jobs:
         
       - name: Build and Test - Checkstyle - Integration
         run: ./bash/maven_build.sh -j checkstyle -p integration
-        if: ${{ github.ref == 'refs/heads/integration'  }} && github.event_name == 'push'
+        if: ${{ github.ref == 'refs/heads/integration'  }}
         
       - name: Build and Test - Checkstyle - Release
         run: ./bash/maven_build.sh -j checkstyle -p release
-        if: ${{ contains(github.ref, 'master') || (contains(github.ref, 'refs/tags/') && contains(github.ref, 'Release'))  }} && github.event_name == 'push'
+        if: ${{ contains(github.ref, 'master') || (contains(github.ref, 'refs/tags/') && contains(github.ref, 'Release'))  }}
         
   deploy:
     # Name the Job
@@ -216,7 +214,7 @@ jobs:
          file_glob: true  
          
       - name: Deploy - Integration - Binaries
-        if: ${{ github.ref == 'refs/heads/integration'  }} && github.event_name == 'push'
+        if: ${{ github.ref == 'refs/heads/integration'  }} 
         uses: svenstaro/upload-release-action@v2
         with:
          repo_token: ${{ secrets.GITHUB_TOKEN }}
@@ -228,7 +226,7 @@ jobs:
          body: "Integration build on latest commit by Github Actions CI - ${{ github.ref }} (${{ github.sha }}) - $(date +'%F %T %Z'). This release is subject to constant change."
          
       - name: Deploy - Integration - Manuals
-        if: ${{ github.ref == 'refs/heads/integration'  }} && github.event_name == 'push'
+        if: ${{ github.ref == 'refs/heads/integration'  }}
         uses: svenstaro/upload-release-action@v2
         with:
          repo_token: ${{ secrets.GITHUB_TOKEN }}
@@ -237,7 +235,7 @@ jobs:
          file_glob: true  
        
       - name: Deploy - Release - Binaries
-        if: ${{ (contains(github.ref, 'refs/tags/') && contains(github.ref, 'Release'))  }} && github.event_name == 'push'
+        if: ${{ (contains(github.ref, 'refs/tags/') && contains(github.ref, 'Release'))  }}
         uses: svenstaro/upload-release-action@v2
         with:
          repo_token: ${{ secrets.GITHUB_TOKEN }}
@@ -249,7 +247,7 @@ jobs:
          body: "Release build on latest commit by Github Actions CI - ${{ github.ref }} (${{ github.sha }}) - $(date +'%F %T %Z'). This is a stable release."
          
       - name: Deploy - Release - Manuals
-        if: ${{ (contains(github.ref, 'refs/tags/') && contains(github.ref, 'Release'))  }} && github.event_name == 'push'
+        if: ${{ (contains(github.ref, 'refs/tags/') && contains(github.ref, 'Release'))  }}
         uses: svenstaro/upload-release-action@v2
         with:
          repo_token: ${{ secrets.GITHUB_TOKEN }}
