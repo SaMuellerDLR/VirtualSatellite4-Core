@@ -220,7 +220,8 @@ jobs:
         env:
           github.sha: ${{ github.sha }}
         run: |
-           ./bash/github_release.sh -t ${{ secrets.GITHUB_TOKEN }} -c create -r ${{ github.ref }} -d "Release build on latest commit by Github Actions CI - ${{ github.ref }} (${{ github.sha }}) - $(date +'%F %T %Z'). This is a stable release." 
-           ./bash/github_release.sh -t ${{ secrets.GITHUB_TOKEN }} -c multi -r ${{ github.ref }} -p "*.zip" -dir deploy/secured
-           ./bash/github_release.sh -t ${{ secrets.GITHUB_TOKEN }} -c multi -r ${{ github.ref }} -p "*.tar.gz" -dir deploy/secured
-           ./bash/github_release.sh -t ${{ secrets.GITHUB_TOKEN }} -c multi -r ${{ github.ref }} -p "*.pdf" -dir de.dlr.sc.virsat.docs.feature/docs
+           TAG_NAME=${GITHUB_REF#refs/*/}
+           ./bash/github_release.sh -t ${{ secrets.GITHUB_TOKEN }} -c create -r $TAG_NAME -d "Release build on latest commit by Github Actions CI - ${{ github.ref }} (${{ github.sha }}) - $(date +'%F %T %Z'). This is a stable release." 
+           ./bash/github_release.sh -t ${{ secrets.GITHUB_TOKEN }} -c multi -r $TAG_NAME -p "*.zip" -dir deploy/secured
+           ./bash/github_release.sh -t ${{ secrets.GITHUB_TOKEN }} -c multi -r $TAG_NAME -p "*.tar.gz" -dir deploy/secured
+           ./bash/github_release.sh -t ${{ secrets.GITHUB_TOKEN }} -c multi -r $TAG_NAME -p "*.pdf" -dir de.dlr.sc.virsat.docs.feature/docs
