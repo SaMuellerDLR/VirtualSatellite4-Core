@@ -1,0 +1,93 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Nightly
+
+# Controls when the action will run. 
+on:
+  schedule:
+    - cron: '20 15 * * *'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  spotbugs:
+    # Name the Job
+    name: Spotbugs
+    # Set the type of machine to run on
+    runs-on: ubuntu-16.04
+
+    steps:
+       # Checks out a copy of the repository
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Cache local Maven repository
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository/
+          key: ${{ runner.os }}-local-maven-spotbugs-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-local-maven-spotbugs-
+            ${{ runner.os }}-local-maven-
+        
+      - name: Setup
+        run: ./bash/setup.sh
+        
+      - name: Build and Test - SpotBugs - Development and Features
+        run: ./bash/maven_build.sh -j spotbugs -p development
+        if: ${{ contains(github.ref, 'development') }}
+        
+  surefire:
+    # Name the Job
+    name: Surefire
+    # Set the type of machine to run on
+    runs-on: ubuntu-16.04
+
+    steps:
+       # Checks out a copy of your repository
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Cache local Maven repository
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository/
+          key: ${{ runner.os }}-local-maven-surefire-{{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-local-maven-surefire-
+            ${{ runner.os }}-local-maven-
+      
+      - name: Setup
+        run: ./bash/setup.sh
+        
+      - name: Build and Test - Surefire - Development and Features
+        run: ./bash/maven_build.sh -j sureheadless -p development
+        if: ${{ contains(github.ref, 'development')  }}
+      
+      
+  checkstyle:
+    # Name the Job
+    name: Checkstyle
+    # Set the type of machine to run on
+    runs-on: ubuntu-16.04
+
+    steps:
+       # Checks out a copy of your repository
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Cache local Maven repository
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository/
+          key: ${{ runner.os }}-local-maven-checkstyle-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-local-maven-checkstyle-
+            ${{ runner.os }}-local-maven-
+      
+      - name: Setup
+        run: ./bash/setup.sh
+        
+      - name: Build and Test - Checkstyle - Development and Features
+        run: ./bash/maven_build.sh -j checkstyle -p development
+        if: ${{ contains(github.ref, 'development')  }}
