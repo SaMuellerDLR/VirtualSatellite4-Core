@@ -21,7 +21,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2 
         with:
-         ref: development
+          ref: refs/heads/development
         
       - name: Setup
         run: ./bash/setup.sh
