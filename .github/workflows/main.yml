@@ -244,7 +244,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
          repo_token: ${{ secrets.GITHUB_TOKEN }}
-         file: deploy/unsecured/bin/**/*
+         file: deploy/secured/bin/**/*
          tag: ${{ github.ref }}
          release_name: Virtual Satellite 4 Core Release Build  
          file_glob: true
