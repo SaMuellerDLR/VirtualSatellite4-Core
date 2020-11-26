@@ -1,16 +1,8 @@
 name: Build
 
 # Run this workflow every time a new commit pushed to your repository
-on: 
- push:
-   branches:
-      - '**'
- pull_request:
-   branches:
-      - 'feature/*'
- schedule:
-   - cron: "*/5 * * * *"
-     
+on: push
+
 jobs:
   verify:
     name: Verify
