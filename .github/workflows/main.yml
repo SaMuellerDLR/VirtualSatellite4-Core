@@ -179,12 +179,21 @@ jobs:
         run: ./bash/maven_build.sh -j assemble -p release
         if: ${{ contains(github.ref, 'master') || (contains(github.ref, 'refs/tags/') && contains(github.ref, 'Release'))  }}
         
-      - name: Create Tag
+      - name: Create Development Tag
         run: |
          git tag -f development_snapshot
          git remote add github-mtd https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
          git push -f github-mtd development_snapshot
          git remote remove github-mtd
+        if: ${{ github.ref == 'refs/heads/development'  }}
+       
+      - name: Create Integration Tag
+        run: |
+         git tag -f development_integration
+         git remote add github-mtd https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+         git push -f github-mtd development_integration
+         git remote remove github-mtd
+        if: ${{ github.ref == 'refs/heads/integration'  }}
        
       - name: Deploy - Development - Binaries
         if: ${{ github.ref == 'refs/heads/development'  }}
