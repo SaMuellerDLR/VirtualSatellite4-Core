@@ -19,9 +19,9 @@ jobs:
     steps:
        # Checks out a copy of the repository
       - name: Checkout code
-        uses: actions/checkout@v2 
+      - uses: actions/checkout@v2 
         with:
-          ref: refs/remotes/origin/development
+         ref: refs/remotes/origin/development
         
       - name: Setup
         run: ./bash/setup.sh
@@ -39,7 +39,7 @@ jobs:
     steps:
        # Checks out a copy of your repository
       - name: Checkout code
-        uses: actions/checkout@v2 
+      - uses: actions/checkout@v2 
         with:
          ref: development
       
