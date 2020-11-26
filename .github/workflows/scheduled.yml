@@ -5,7 +5,7 @@ name: Nightly
 # Controls when the action will run. 
 on:
   schedule:
-    - cron: '12 16 * * *'
+    - cron: '20 16 * * *'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -19,9 +19,16 @@ jobs:
     steps:
        # Checks out a copy of the repository
       - name: Checkout code
-        uses: actions/checkout@v2 
+        uses: actions/checkout@v2
+      
+      - name: Cache local Maven repository
+        uses: actions/cache@v2
         with:
-         ref: development
+          path: ~/.m2/repository/
+          key: ${{ runner.os }}-local-maven-spotbugs-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-local-maven-spotbugs-
+            ${{ runner.os }}-local-maven-
         
       - name: Setup
         run: ./bash/setup.sh
@@ -39,9 +46,16 @@ jobs:
     steps:
        # Checks out a copy of your repository
       - name: Checkout code
-        uses: actions/checkout@v2 
+        uses: actions/checkout@v2
+      
+      - name: Cache local Maven repository
+        uses: actions/cache@v2
         with:
-         ref: development
+          path: ~/.m2/repository/
+          key: ${{ runner.os }}-local-maven-surefire-{{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-local-maven-surefire-
+            ${{ runner.os }}-local-maven-
       
       - name: Setup
         run: ./bash/setup.sh
@@ -60,10 +74,16 @@ jobs:
     steps:
        # Checks out a copy of your repository
       - name: Checkout code
-        uses: actions/checkout@v2 
-        with:
-         ref: development
+        uses: actions/checkout@v2
       
+      - name: Cache local Maven repository
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository/
+          key: ${{ runner.os }}-local-maven-checkstyle-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-local-maven-checkstyle-
+            ${{ runner.os }}-local-maven-
       
       - name: Setup
         run: ./bash/setup.sh
