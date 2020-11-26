@@ -189,9 +189,9 @@ jobs:
        
       - name: Create Integration Tag
         run: |
-         git tag -f development_integration
+         git tag -f integration_snapshot
          git remote add github-mtd https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-         git push -f github-mtd development_integration
+         git push -f github-mtd integration_snapshot
          git remote remove github-mtd
         if: ${{ github.ref == 'refs/heads/integration'  }}
        
