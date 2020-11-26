@@ -197,28 +197,15 @@ jobs:
          git remote remove github-mtd
         if: ${{ github.ref == 'refs/heads/integration'  }}
        
-      - name: Deploy - Development - Binaries
+      - name: Deploy - Development
         if: ${{ github.ref == 'refs/heads/development'  }}
-        uses: svenstaro/upload-release-action@v2
-        with:
-         repo_token: ${{ secrets.GITHUB_TOKEN }}
-         file: deploy/unsecured/bin/**/*
-         tag: development_snapshot
-         release_name: Virtual Satellite 4 Core Development Build  
-         overwrite: true
-         file_glob: true
-         
-      - name: Deploy - Development - Manuals
-        if: ${{ github.ref == 'refs/heads/development'  }}
-        uses: svenstaro/upload-release-action@v2
-        with:
-         repo_token: ${{ secrets.GITHUB_TOKEN }}
-         file: de.dlr.sc.virsat.docs.feature/docs/*.pdf
-         tag: development_snapshot
-         overwrite: true
-         file_glob: true
-         body: "Development build on latest commit by Github Actions CI - ${{ github.ref }} (${{ github.sha }}) - $(date +'%F %T %Z'). This release is subject to constant change."
-         
+        run: |
+           ./github_release.sh -t ${{ secrets.GITHUB_TOKEN }} -c delete -r development_snapshot
+           ./github_release.sh -t ${{ secrets.GITHUB_TOKEN }} -c create -r development_snapshot -d "Virtual Satellite 4 Core Development Build "
+           ./github_release.sh -t ${{ secrets.GITHUB_TOKEN }} -c multi -r development_snapshot -p "*.zip" -d deploy/unsecured
+           ./github_release.sh -t ${{ secrets.GITHUB_TOKEN }} -c multi -r development_snapshot -p "*.tar.gz" -d deploy/unsecured
+           ./github_release.sh -t ${{ secrets.GITHUB_TOKEN }} -c multi -r development_snapshot -p "*.pdf" -d de.dlr.sc.virsat.docs.feature/docs       
+
       - name: Deploy - Integration - Binaries
         if: ${{ github.ref == 'refs/heads/integration'  }}
         uses: svenstaro/upload-release-action@v2
