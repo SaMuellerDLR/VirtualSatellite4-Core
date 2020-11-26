@@ -219,6 +219,8 @@ jobs:
      
       - name: Deploy - Release
         if: ${{ (contains(github.ref, 'refs/tags/') && contains(github.ref, 'Release'))  }}
+        env:
+          github.sha: ${{ github.sha }}
         run: |
            ./bash/github_release.sh -t ${{ secrets.GITHUB_TOKEN }} -c delete -r ${{ github.ref }}
            ./bash/github_release.sh -t ${{ secrets.GITHUB_TOKEN }} -c create -r ${{ github.ref }} -d "Virtual Satellite 4 Core Release Build "
