@@ -66,7 +66,7 @@ public class TestCategoryAllPropertyTest extends AConceptTestCase {
 	public void tearDown() throws InterruptedException {
 		jaxbUtility = null;
 		Runtime.getRuntime().gc();
-		final int sleeptime = 1000;
+		final int sleeptime = 2000;
 		Thread.sleep(sleeptime);
 	}
 
