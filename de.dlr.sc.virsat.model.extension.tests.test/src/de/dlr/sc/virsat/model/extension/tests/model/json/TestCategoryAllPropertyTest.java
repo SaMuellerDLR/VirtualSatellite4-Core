@@ -18,14 +18,17 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.dlr.sc.virsat.model.dvlm.concepts.Concept;
+import de.dlr.sc.virsat.model.dvlm.json.JAXBUtility;
 import de.dlr.sc.virsat.model.extension.tests.model.AConceptTestCase;
 import de.dlr.sc.virsat.model.extension.tests.model.TestCategoryAllProperty;
 
 public class TestCategoryAllPropertyTest extends AConceptTestCase {
 
 	private TestCategoryAllProperty tcAllProperty;
-	//private JAXBUtility jaxbUtility;
-	//private Concept concept;
+	@SuppressWarnings("unused")
+	private JAXBUtility jaxbUtility;
+	private Concept concept;
 
 	//private static final String RESOURCE_WITH_DEFAULTS = "/resources/json/TestCategoryAllProperty_Marshaling_Defaults.json";
 	//private static final String RESOURCE_WITH_VALUES = "/resources/json/TestCategoryAllProperty_Marshaling.json";
@@ -42,7 +45,14 @@ public class TestCategoryAllPropertyTest extends AConceptTestCase {
 
 	@Before
 	public void setup() throws JAXBException {
-		
+		jaxbUtility = new JAXBUtility(new Class[] { TestCategoryAllProperty.class });
+
+		prepareEditingDomain();
+		concept = loadConceptFromPlugin();
+
+		tcAllProperty = new TestCategoryAllProperty(concept);
+		JsonTestHelper.setTestCategoryAllPropertyUuids(tcAllProperty);
+		JsonTestHelper.createRepositoryWithUnitManagement(concept);
 	}
 	
 	@After
