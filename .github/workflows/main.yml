@@ -100,12 +100,14 @@ jobs:
         run: ./bash/maven_build.sh -j sureheadless -p release
         if: ${{ contains(github.ref, 'master') || (contains(github.ref, 'refs/tags/') && contains(github.ref, 'Release'))  }}
       
-      - name: Upload SWT Screenshots on Failure
+      - name: Upload Test Output on Failure
         if: ${{ failure() }}
         uses: actions/upload-artifact@v2
         with:
-          name: Swtbot Output
-          path: swtbot/*
+          name: Test Output
+          path: |
+            swtbot/*
+            de.dlr.sc.virsat.test/target/surefire-reports/de.dlr.sc.virsat.test.ProjectAllTest-output.txt
       
   checkstyle:
     # Name the Job
