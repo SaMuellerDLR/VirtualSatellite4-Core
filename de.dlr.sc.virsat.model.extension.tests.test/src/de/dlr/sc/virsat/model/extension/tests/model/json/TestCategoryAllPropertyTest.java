@@ -15,6 +15,7 @@ import javax.xml.bind.JAXBException;
 
 import org.eclipse.emf.common.util.URI;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,6 +23,7 @@ import de.dlr.sc.virsat.model.dvlm.concepts.Concept;
 import de.dlr.sc.virsat.model.dvlm.json.JAXBUtility;
 import de.dlr.sc.virsat.model.extension.tests.model.AConceptTestCase;
 import de.dlr.sc.virsat.model.extension.tests.model.TestCategoryAllProperty;
+import de.dlr.sc.virsat.server.test.AJettyServerTest;
 
 public class TestCategoryAllPropertyTest extends AConceptTestCase {
 
@@ -53,6 +55,15 @@ public class TestCategoryAllPropertyTest extends AConceptTestCase {
 	
 	@After
 	public void tearDown() throws InterruptedException {
+		final int time = 5000;
+		System.gc();
+		Thread.sleep(time);
+		System.runFinalization();
+		Thread.sleep(time);
+	}
+	
+	@AfterClass
+	public static void teadDownClass() throws Exception {
 		final int time = 5000;
 		System.gc();
 		Thread.sleep(time);
