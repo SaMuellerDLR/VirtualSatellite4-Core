@@ -14,7 +14,6 @@ import java.io.IOException;
 import javax.xml.bind.JAXBException;
 
 import org.eclipse.emf.common.util.URI;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -52,14 +51,6 @@ public class TestCategoryAllPropertyTest extends AConceptTestCase {
 		tcAllProperty = new TestCategoryAllProperty(concept);
 		JsonTestHelper.setTestCategoryAllPropertyUuids(tcAllProperty);
 		JsonTestHelper.createRepositoryWithUnitManagement(concept);
-	}
-	
-	@After
-	public void tearDown() throws InterruptedException {
-		jaxbUtility = null;
-		Runtime.getRuntime().gc();
-		final int sleeptime = 1000;
-		Thread.sleep(sleeptime);
 	}
 
 	/**
