@@ -53,7 +53,11 @@ public class TestCategoryAllPropertyTest extends AConceptTestCase {
 	
 	@After
 	public void tearDown() throws InterruptedException {
-		
+		final int time = 5000;
+		System.gc();
+		Thread.sleep(time);
+		System.runFinalization();
+		Thread.sleep(time);
 	}
 
 	/**
@@ -72,11 +76,5 @@ public class TestCategoryAllPropertyTest extends AConceptTestCase {
 	public void testJsonMarshalling() throws JAXBException, IOException, InterruptedException {
 		JAXBUtility jaxbUtility = new JAXBUtility(new Class[] { TestCategoryAllProperty.class });
 		System.out.println(jaxbUtility);
-		
-		final int time = 5000;
-		System.gc();
-		Thread.sleep(time);
-		System.runFinalization();
-		Thread.sleep(time);
 	}
 }
