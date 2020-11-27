@@ -111,7 +111,8 @@ jobs:
         
       - name: Build and Test - Surefire - Release
         run: ./bash/maven_build.sh -j sureheadless -p release
-        if: ${{ contains(github.ref, 'master') || (contains(github.ref, 'refs/tags/') && contains(github.ref, 'Release'))  }}
+        if: ${{ contains(github.ref, 'master') || (contains(github.ref, 'refs/tags/') && contains(github.ref, 'Release')) 
+             || github.event_name == 'pull_request' && contains(github.base_ref, 'master')  }}
       
       - name: Upload Test Output on Failure
         if: ${{ failure() }}
@@ -207,7 +208,7 @@ jobs:
       - name: Build-Assemble - Release
         run: ./bash/maven_build.sh -j assemble -p release
         if: ${{ github.ref == 'refs/heads/integration' 
-             || github.event_name == 'pull_request' && contains(github.base_ref, 'integration')  
+             || github.event_name == 'pull_request' && contains(github.base_ref, 'master')  
              || (contains(github.ref, 'refs/tags/') && contains(github.ref, 'Release'))  }}
         env:
           github.sha:  ${{ github.sha }}
