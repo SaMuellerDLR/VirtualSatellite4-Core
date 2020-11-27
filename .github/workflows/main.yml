@@ -100,6 +100,11 @@ jobs:
         run: ./bash/maven_build.sh -j sureheadless -p release
         if: ${{ contains(github.ref, 'master') || (contains(github.ref, 'refs/tags/') && contains(github.ref, 'Release'))  }}
       
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Swtbot Output
+          path: swtbot/*
+      
   checkstyle:
     # Name the Job
     name: Checkstyle
