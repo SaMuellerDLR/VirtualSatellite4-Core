@@ -79,15 +79,7 @@ import junit.framework.JUnit4TestAdapter;
 				MatImporterTest.class,
 				MatExporterTest.class,
 				BeanPropertyReferenceTest.class,
-				ReferenceUpdateTest.class,
-				de.dlr.sc.virsat.model.extension.tests.model.json.TestCategoryAllPropertyTest.class,
-				de.dlr.sc.virsat.model.extension.tests.model.json.TestCategoryBeanATest.class,
-				de.dlr.sc.virsat.model.extension.tests.model.json.TestCategoryIntrinsicArrayTest.class,
-				de.dlr.sc.virsat.model.extension.tests.model.json.TestCategoryCompositionTest.class,
-				de.dlr.sc.virsat.model.extension.tests.model.json.TestCategoryReferenceTest.class,
-				de.dlr.sc.virsat.model.extension.tests.model.json.TestCategoryCompositionArrayTest.class,
-				de.dlr.sc.virsat.model.extension.tests.model.json.TestCategoryReferenceArrayTest.class,
-				de.dlr.sc.virsat.model.extension.tests.model.json.TestStructuralElementInstanceTest.class
+				ReferenceUpdateTest.class
 				})
 
 /**
