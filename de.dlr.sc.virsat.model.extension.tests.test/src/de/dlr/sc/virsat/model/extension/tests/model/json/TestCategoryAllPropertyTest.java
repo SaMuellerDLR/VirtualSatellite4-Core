@@ -13,77 +13,16 @@ import java.io.IOException;
 
 import javax.xml.bind.JAXBException;
 
-import org.eclipse.emf.common.util.URI;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.Test;
 
-import de.dlr.sc.virsat.model.dvlm.concepts.Concept;
 import de.dlr.sc.virsat.model.dvlm.json.JAXBUtility;
 import de.dlr.sc.virsat.model.extension.tests.model.AConceptTestCase;
 import de.dlr.sc.virsat.model.extension.tests.model.TestCategoryAllProperty;
 
 public class TestCategoryAllPropertyTest extends AConceptTestCase {
 
-	private TestCategoryAllProperty tcAllProperty;
-	private Concept concept;
-
-	//private static final String RESOURCE_WITH_DEFAULTS = "/resources/json/TestCategoryAllProperty_Marshaling_Defaults.json";
-	//private static final String RESOURCE_WITH_VALUES = "/resources/json/TestCategoryAllProperty_Marshaling.json";
-
-	private static final boolean TEST_BOOL = true;
-	private static final int TEST_INT = 1;
-	private static final double TEST_FLOAT = 0.0;
-	private static final String TEST_STRING = "this is a test";
-	private static final String TEST_ENUM = "HIGH";
-	private static final String TEST_RESOURCE = "resources/file[1].xls";
-	//private static final String TEST_RESOURCE_STRING = "/" + TEST_RESOURCE;
-
-	//private static final double EPSILON = 0.000001;
-
-	@Before
-	public void setup() throws JAXBException {
-		prepareEditingDomain();
-		concept = loadConceptFromPlugin();
-
-		tcAllProperty = new TestCategoryAllProperty(concept);
-		JsonTestHelper.setTestCategoryAllPropertyUuids(tcAllProperty);
-		JsonTestHelper.createRepositoryWithUnitManagement(concept);
-	}
-	
-	@After
-	public void tearDown() throws InterruptedException {
-		final int time = 5000;
-		System.gc();
-		Thread.sleep(time);
-		System.runFinalization();
-		Thread.sleep(time);
-	}
-	
-	@AfterClass
-	public static void teadDownClass() throws Exception {
-		final int time = 5000;
-		System.gc();
-		Thread.sleep(time);
-		System.runFinalization();
-		Thread.sleep(time);
-	}
-
-	/**
-	 * Set the new values
-	 */
-	public void initProperties() {
-		tcAllProperty.setTestInt(TEST_INT);
-		tcAllProperty.setTestFloat(TEST_FLOAT);
-		tcAllProperty.setTestEnum(TEST_ENUM);
-		tcAllProperty.setTestResource(URI.createPlatformPluginURI(TEST_RESOURCE, false));
-		tcAllProperty.setTestString(TEST_STRING);
-		tcAllProperty.setTestBool(TEST_BOOL);
-	}
-
 	@Test
-	public void testJsonMarshalling() throws JAXBException, IOException, InterruptedException {
+	public void testJsonMarshalling() throws JAXBException, IOException {
 		JAXBUtility jaxbUtility = new JAXBUtility(new Class[] { TestCategoryAllProperty.class });
 		System.out.println(jaxbUtility);
 	}
