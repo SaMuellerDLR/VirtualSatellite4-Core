@@ -26,7 +26,6 @@ import de.dlr.sc.virsat.model.extension.tests.model.TestCategoryAllProperty;
 public class TestCategoryAllPropertyTest extends AConceptTestCase {
 
 	private TestCategoryAllProperty tcAllProperty;
-	//private JAXBUtility jaxbUtility;
 	private Concept concept;
 
 	//private static final String RESOURCE_WITH_DEFAULTS = "/resources/json/TestCategoryAllProperty_Marshaling_Defaults.json";
@@ -44,16 +43,12 @@ public class TestCategoryAllPropertyTest extends AConceptTestCase {
 
 	@Before
 	public void setup() throws JAXBException {
-		JAXBUtility jaxbUtility = new JAXBUtility(new Class[] { TestCategoryAllProperty.class });
-
 		prepareEditingDomain();
 		concept = loadConceptFromPlugin();
 
 		tcAllProperty = new TestCategoryAllProperty(concept);
 		JsonTestHelper.setTestCategoryAllPropertyUuids(tcAllProperty);
 		JsonTestHelper.createRepositoryWithUnitManagement(concept);
-		
-		System.out.println(jaxbUtility);
 	}
 	
 	@After
@@ -75,6 +70,7 @@ public class TestCategoryAllPropertyTest extends AConceptTestCase {
 
 	@Test
 	public void testJsonMarshalling() throws JAXBException, IOException {
-		
+		JAXBUtility jaxbUtility = new JAXBUtility(new Class[] { TestCategoryAllProperty.class });
+		System.out.println(jaxbUtility);
 	}
 }
