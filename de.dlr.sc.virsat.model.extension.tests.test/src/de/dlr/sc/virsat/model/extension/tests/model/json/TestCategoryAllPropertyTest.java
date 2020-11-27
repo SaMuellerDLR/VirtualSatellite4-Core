@@ -23,7 +23,6 @@ import de.dlr.sc.virsat.model.dvlm.concepts.Concept;
 import de.dlr.sc.virsat.model.dvlm.json.JAXBUtility;
 import de.dlr.sc.virsat.model.extension.tests.model.AConceptTestCase;
 import de.dlr.sc.virsat.model.extension.tests.model.TestCategoryAllProperty;
-import de.dlr.sc.virsat.server.test.AJettyServerTest;
 
 public class TestCategoryAllPropertyTest extends AConceptTestCase {
 
