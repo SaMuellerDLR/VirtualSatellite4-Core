@@ -48,6 +48,7 @@ public class TestCategoryAllPropertyTest extends AConceptTestCase {
 	
 	private static final double EPSILON = 0.000001;
 	
+	
 	@Before
 	public void setup() throws JAXBException {
 		jaxbUtility = new JAXBUtility(new Class[] {TestCategoryAllProperty.class});
