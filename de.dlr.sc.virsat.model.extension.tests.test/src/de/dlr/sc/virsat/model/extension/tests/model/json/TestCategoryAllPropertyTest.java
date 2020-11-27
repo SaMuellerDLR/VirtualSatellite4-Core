@@ -16,10 +16,9 @@ import javax.xml.bind.JAXBException;
 import org.junit.Test;
 
 import de.dlr.sc.virsat.model.dvlm.json.JAXBUtility;
-import de.dlr.sc.virsat.model.extension.tests.model.AConceptTestCase;
 import de.dlr.sc.virsat.model.extension.tests.model.TestCategoryAllProperty;
 
-public class TestCategoryAllPropertyTest extends AConceptTestCase {
+public class TestCategoryAllPropertyTest {
 
 	@Test
 	public void testJsonMarshalling() throws JAXBException, IOException {
