@@ -26,7 +26,6 @@ import de.dlr.sc.virsat.model.extension.tests.model.TestCategoryAllProperty;
 public class TestCategoryAllPropertyTest extends AConceptTestCase {
 
 	private TestCategoryAllProperty tcAllProperty;
-	//private JAXBUtility jaxbUtility;
 	private Concept concept;
 
 	//private static final String RESOURCE_WITH_DEFAULTS = "/resources/json/TestCategoryAllProperty_Marshaling_Defaults.json";
@@ -43,21 +42,13 @@ public class TestCategoryAllPropertyTest extends AConceptTestCase {
 	//private static final double EPSILON = 0.000001;
 
 	@Before
-	public void setup() throws JAXBException, InterruptedException {
-		@SuppressWarnings("unused")
-		JAXBUtility jaxbUtility = new JAXBUtility(new Class[] { TestCategoryAllProperty.class });
-
+	public void setup() throws JAXBException {
 		prepareEditingDomain();
 		concept = loadConceptFromPlugin();
 
 		tcAllProperty = new TestCategoryAllProperty(concept);
 		JsonTestHelper.setTestCategoryAllPropertyUuids(tcAllProperty);
 		JsonTestHelper.createRepositoryWithUnitManagement(concept);
-		final int time = 5000;
-		System.gc();
-		Thread.sleep(time);
-		System.runFinalization();
-		Thread.sleep(time);
 	}
 	
 	@After
@@ -78,7 +69,14 @@ public class TestCategoryAllPropertyTest extends AConceptTestCase {
 	}
 
 	@Test
-	public void testJsonMarshalling() throws JAXBException, IOException {
+	public void testJsonMarshalling() throws JAXBException, IOException, InterruptedException {
+		JAXBUtility jaxbUtility = new JAXBUtility(new Class[] { TestCategoryAllProperty.class });
+		System.out.println(jaxbUtility);
 		
+		final int time = 5000;
+		System.gc();
+		Thread.sleep(time);
+		System.runFinalization();
+		Thread.sleep(time);
 	}
 }
