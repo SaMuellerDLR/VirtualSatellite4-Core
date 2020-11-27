@@ -30,7 +30,7 @@ public class TestCategoryAllPropertyTest extends AConceptTestCase {
 	private Concept concept;
 
 	//private static final String RESOURCE_WITH_DEFAULTS = "/resources/json/TestCategoryAllProperty_Marshaling_Defaults.json";
-	//private static final String RESOURCE_WITH_VALUES = "/resources/json/TestCategoryAllProperty_Marshaling.json";
+	private static final String RESOURCE_WITH_VALUES = "/resources/json/TestCategoryAllProperty_Marshaling.json";
 
 	private static final boolean TEST_BOOL = true;
 	private static final int TEST_INT = 1;
@@ -52,8 +52,6 @@ public class TestCategoryAllPropertyTest extends AConceptTestCase {
 		tcAllProperty = new TestCategoryAllProperty(concept);
 		JsonTestHelper.setTestCategoryAllPropertyUuids(tcAllProperty);
 		JsonTestHelper.createRepositoryWithUnitManagement(concept);
-		
-		System.out.println(jaxbUtility);
 	}
 	
 	@After
@@ -78,6 +76,8 @@ public class TestCategoryAllPropertyTest extends AConceptTestCase {
 
 	@Test
 	public void testJsonMarshalling() throws JAXBException, IOException {
-		
+		initProperties();
+
+		JsonTestHelper.assertMarshall(jaxbUtility, RESOURCE_WITH_VALUES, tcAllProperty);
 	}
 }
