@@ -26,7 +26,6 @@ import de.dlr.sc.virsat.model.extension.tests.model.TestCategoryAllProperty;
 public class TestCategoryAllPropertyTest extends AConceptTestCase {
 
 	private TestCategoryAllProperty tcAllProperty;
-	@SuppressWarnings("unused")
 	private JAXBUtility jaxbUtility;
 	private Concept concept;
 
@@ -53,6 +52,8 @@ public class TestCategoryAllPropertyTest extends AConceptTestCase {
 		tcAllProperty = new TestCategoryAllProperty(concept);
 		JsonTestHelper.setTestCategoryAllPropertyUuids(tcAllProperty);
 		JsonTestHelper.createRepositoryWithUnitManagement(concept);
+		
+		System.out.println(jaxbUtility);
 	}
 	
 	@After
